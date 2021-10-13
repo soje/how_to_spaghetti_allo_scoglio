@@ -6,24 +6,28 @@ import CoreGraphics
 
 struct ContentView: View {
     
-    @State private var mainViewDim = ["x": CGFloat(600), "y": CGFloat(450)]
-    @State private var varchetellaDim = CGFloat(300)
-    @State private var navicellaDim = CGFloat(0)
+    @State private var mainViewDim:[String:CGFloat] = ["x": 600, "y": 450]
+    @State private var varchetellaDim:CGFloat = 300
+    @State private var navicellaDim: CGFloat = 0
     
-    @State private var cloudOnePos = ["x": CGFloat(270), "y": CGFloat(-300)]
-    @State private var cloudTwoPos = ["x": CGFloat(100), "y": CGFloat(-370)]
-    @State private var cloudThreePos = ["x": CGFloat(440), "y": CGFloat(-370)]
+    @State private var cloudOnePos:[String:CGFloat] = ["x": 270, "y": -300]
+    @State private var cloudTwoPos:[String:CGFloat] = ["x": 100, "y": -370]
+    @State private var cloudThreePos:[String:CGFloat] = ["x": 440, "y": -370]
     
-    @State private var navicellaPos = ["x": CGFloat(900), "y": CGFloat(100)]
-    @State private var boatPos = ["x": CGFloat(-150), "y": CGFloat(280)]
-    @State private var pirateOnePos = CGFloat(-45)
-    @State private var pirateTwoPos = CGFloat(-45)
-    @State private var pirateThreePos = CGFloat(-65)
+    @State private var navicellaPos:[String:CGFloat] = ["x": 900, "y": 100]
+    @State private var lightPos:[String:CGFloat] = ["x": 280, "y": 250]
+    @State private var lightOpacity:Double = 0.0
+    @State private var lightDim:CGFloat = 335
     
-    @State private var animDurationShip = Double(1)
-    @State private var animDurationNavicella = Double(0.8)
+    @State private var boatPos:[String:CGFloat] = ["x": -150, "y": 280]
+    @State private var pirateOnePos:[String:CGFloat] = ["x": 145, "y": -45]
+    @State private var pirateTwoPos:[String:CGFloat] = ["x": 180, "y": -45]
+    @State private var pirateThreePos:[String:CGFloat] = ["x": 65, "y": -65]
     
-    @State private var player: AVAudioPlayer!
+    @State private var animDurationShip:Double = 1
+    @State private var animDurationNavicella:Double = 0.8
+    
+    @State private var player:AVAudioPlayer!
     @State private var animation = 1
 
     var body: some View {
@@ -65,7 +69,7 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 602, alignment: .bottomLeading)
                     .offset(x:0, y:0)
-                    .gesture(TapGesture().onEnded {
+/*                    .gesture(TapGesture().onEnded {
                         
                         //Lettore audio per i suoni
                         //let oceanSound = Bundle.main.path(forResource: "ocean", ofType: "mp3")
@@ -74,7 +78,7 @@ struct ContentView: View {
                         //player.play()
                         
       //                  boatPos["x"] = CGFloat(180)
-                    })
+                    })*/
                 
                 // Container for pirates and ship
                 ZStack(alignment: .bottomLeading){
@@ -83,11 +87,7 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 47)
-                        .offset(x: 145, y: -45)
-                        .gesture(TapGesture().onEnded {
-    //                        navicellaPos["x"] = CGFloat(400)
-    //                        navicellaDim = CGFloat(250)
-                        })
+                        .offset(x: pirateOnePos["x"]!, y: pirateOnePos["y"]!)
                         .animation(
                             .linear(duration: 1)
                         )
@@ -96,11 +96,7 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 47)
-                        .offset(x: 180, y: -45)
-                        .gesture(TapGesture().onEnded {
-    //                        navicellaPos["x"] = CGFloat(400)
-    //                        navicellaDim = CGFloat(250)
-                        })
+                        .offset(x: pirateTwoPos["x"]!, y: pirateTwoPos["y"]!)
                         .animation(
                             .linear(duration: 1)
                         )
@@ -109,11 +105,7 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 47)
-                        .offset(x: 65, y: -65)
-                        .gesture(TapGesture().onEnded {
-    //                        navicellaPos["x"] = CGFloat(400)
-    //                        navicellaDim = CGFloat(250)
-                        })
+                        .offset(x: pirateThreePos["x"]!, y: pirateThreePos["y"]!)
                         .animation(
                             .linear(duration: 1)
                         )
@@ -122,16 +114,22 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: varchetellaDim)
-                        .gesture(TapGesture().onEnded {
-    //                        navicellaPos["x"] = CGFloat(400)
-    //                        navicellaDim = CGFloat(250)
-                        })
-                    
                 }
                 .position( x: boatPos["x"]!, y:boatPos["y"]! )
                 .animation(
                     .linear(duration: animDurationShip)
                 )
+                
+                // luce
+                Image(uiImage: UIImage(named: "ufo-light")!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: lightDim)
+                    .position(x: lightPos["x"]!, y: lightPos["y"]! )
+                    .animation(
+                        .linear(duration: 1)
+                    )
+                    .opacity(lightOpacity)
                 
                 // ufo
                 Image(uiImage: UIImage(named: "navicella.png")!)
@@ -139,63 +137,40 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: navicellaDim, alignment: .topLeading)
                     .position(x: navicellaPos["x"]!, y: navicellaPos["y"]! )
-                    .gesture(TapGesture().onEnded {
-                        
-                    })
                     .animation(
                         .linear(duration: animDurationNavicella)
                     )
                 
-                HStack(alignment: .bottom) {
-                    
-                    Spacer()
-                        .frame(width: mainViewDim["x"], height: mainViewDim["y"])
-                        .gesture(TapGesture().onEnded {
-                            //nave che entra
-                            print("evento animazione")
-                            if(animation == 1){
-                                print("anim1")
-                                boatPos["x"] = CGFloat(180)
-                            //pirati che zompettano
-                            }else if(animation == 2){
-                                print("anim2")
-                                navicellaPos["x"] = CGFloat(400)
-                                navicellaDim = CGFloat(250)
-                            //alieni che arrivano
-                            }else {
-                                print("error")
-                            }
-                            
-                            animation += 1
-                            
-                        })
-                    
-                }.frame(width: mainViewDim["x"], height: mainViewDim["y"])
-                
             }
-            .frame(width: mainViewDim["x"], height: mainViewDim["y"])
+            .frame(width: mainViewDim["x"], height: mainViewDim["y"]!)
             .background(Color.init(red: 157/255, green: 220/255, blue: 249/255))
             
         }
         .frame(width: mainViewDim["x"], height: mainViewDim["y"])
-        .onTapGesture {
+        .gesture(TapGesture().onEnded {
             //nave che entra
-            print("evento animazione")
             if(animation == 1){
-                print("anim1")
-                boatPos["x"] = CGFloat(180)
+                boatPos["x"] = 180
             //pirati che zompettano
             }else if(animation == 2){
-                print("anim2")
-                navicellaPos["x"] = CGFloat(400)
-                navicellaDim = CGFloat(250)
+                navicellaPos["x"] = 400
+                navicellaDim = 250
             //alieni che arrivano
-            }else {
-                print("error")
+            }else if(animation == 3) {
+                lightOpacity = 1
+            }else if(animation == 4){
+                pirateOnePos["x"] = 400
+                pirateOnePos["y"] = -250
+                pirateTwoPos["x"] = 400
+                pirateTwoPos["y"] = -250
+                pirateThreePos["x"] = 400
+                pirateThreePos["y"] = -250
+            }else{
+                print("fine")
             }
             
             animation += 1
-        }
+        })
         
     }
 }
