@@ -5,6 +5,5 @@
         <page name='PageTwo'/>
         <page name='PageThree'/>
         <page name='PageFour'/>
-        <page name='Incontro'/>
     </pages>
 </playground>

@@ -8,21 +8,16 @@ import CoreGraphics
 struct ContentView: View {
     
     // Grandezza del canvas generale, non toccate
-    @State private var mainViewDim = ["x": CGFloat(600), "y": CGFloat(450)]
-    @State private var CanaimageDim =  CGFloat(-225)
-    @State private var player: AVAudioPlayer!
+    @State private var mainViewDim:[String:CGFloat] = ["x": 600, "y": 450]
+    @State private var CanaimageDim:CGFloat = -225
+    @State private var player:AVAudioPlayer!
     
     // Questa è la vista
     var body: some View {
         
-        // Container generale non toccate
-        // Tutti i Widget che vengono inseriti nello zstack
-        // sono visualizzati uno sull'altro, il primo si trova nell'ultimo piano
-        // l'ultimo si trova in primo piano
         ZStack{
             
-            // Esempio di dichiarazione di immagine
-            Image(uiImage: UIImage(named: "CANNAVACCIUOLO")!)
+            Image(uiImage: UIImage(named: "background-kitchen")!)
                 .resizable()
                 .frame(width: 600, height: 920)
                 .offset(x:0, y:CanaimageDim)
@@ -30,14 +25,17 @@ struct ContentView: View {
                     .linear(duration: 15)
                 )
                 .gesture(TapGesture().onEnded{
-                    CanaimageDim = CGFloat(225)
+                    CanaimageDim = 225
+
+                    // SOUND 
+                    /*
                     let oceanSound = Bundle.main.path(forResource: "ADDIOS2", ofType: "mp3")
                     player = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: oceanSound!))
                     player.prepareToPlay()
                     player.play()
+ */
+                
                 })
-            // Esempio di Testo
-            // Text("Hello Playground!")
             
         }.frame(width: mainViewDim["x"], height: mainViewDim["y"])
         

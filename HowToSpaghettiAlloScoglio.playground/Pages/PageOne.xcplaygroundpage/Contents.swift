@@ -24,7 +24,7 @@ struct ContentView: View {
     @State private var pirateTwoPos:[String:CGFloat] = ["x": 180, "y": -45]
     @State private var pirateThreePos:[String:CGFloat] = ["x": 65, "y": -65]
     
-    @State private var animDurationShip:Double = 1
+    @State private var animDurationShip:Double = 6
     @State private var animDurationNavicella:Double = 0.8
     
     @State private var player:AVAudioPlayer!
@@ -89,7 +89,7 @@ struct ContentView: View {
                         .frame(width: 47)
                         .offset(x: pirateOnePos["x"]!, y: pirateOnePos["y"]!)
                         .animation(
-                            .linear(duration: 1)
+                            .linear(duration: animDurationShip)
                         )
                     
                     Image(uiImage: UIImage(named: "pirate-1.png")!)
@@ -98,7 +98,7 @@ struct ContentView: View {
                         .frame(width: 47)
                         .offset(x: pirateTwoPos["x"]!, y: pirateTwoPos["y"]!)
                         .animation(
-                            .linear(duration: 1)
+                            .linear(duration: animDurationShip)
                         )
                     
                     Image(uiImage: UIImage(named: "pirate-2.png")!)
@@ -107,7 +107,7 @@ struct ContentView: View {
                         .frame(width: 47)
                         .offset(x: pirateThreePos["x"]!, y: pirateThreePos["y"]!)
                         .animation(
-                            .linear(duration: 1)
+                            .linear(duration: animDurationShip)
                         )
                     
                     Image(uiImage: UIImage(named: "ship.png")!)
@@ -159,6 +159,7 @@ struct ContentView: View {
             }else if(animation == 3) {
                 lightOpacity = 1
             }else if(animation == 4){
+                animDurationShip = 2
                 pirateOnePos["x"] = 400
                 pirateOnePos["y"] = -250
                 pirateTwoPos["x"] = 400
