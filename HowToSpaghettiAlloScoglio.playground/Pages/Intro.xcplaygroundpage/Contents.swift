@@ -5,7 +5,8 @@ import PlaygroundSupport
 import AVKit
 import CoreGraphics
 struct ContentView: View {
-@State private var Fadeinout = false
+    
+    @State private var Fadeinout = false
     @State private var player: AVAudioPlayer!
     @State private var player2: AVAudioPlayer!
     @State private var titleDim = CGFloat(0)
@@ -62,7 +63,7 @@ struct ContentView: View {
                       .opacity(opacitybg2)
                       .frame(width: 600, height: 450)
                  
-                    // LO SFONDO TI SFONDO
+            // sfondo
             Image(uiImage: UIImage(named: "background")!)
                  .resizable()
                  .aspectRatio(contentMode: .fit)
@@ -74,7 +75,7 @@ struct ContentView: View {
                  .onTapGesture { titleDim = CGFloat(400)
                  }
                
-            // LA SCRITTA
+            // scritta
             Image(uiImage: UIImage(named: "logo")!)
                  .resizable()
                  .aspectRatio(contentMode: .fit)
@@ -86,7 +87,7 @@ struct ContentView: View {
                      Button = CGFloat(100)
                  }
                  
-            // IL PIRATA BOTTONE
+            // il button
             if (premimi){
                 
                 Image(uiImage: UIImage(named: "button")!)
