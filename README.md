@@ -1,1 +1,5 @@
-how_to_spaghetti_allo_scoglio
+How to Spaghetti allo Scoglio
+
+A little story told with swift playground
+
+Credits: Dario Galiani, Alessia Saviano, Elio Barisani, Simone Viciani
